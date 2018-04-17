@@ -1,0 +1,91 @@
+.calendar {
+  border: 1px solid #ddd
+}
+
+.calendar {
+  width: 100%;
+  user-select: none;
+  font-size: 12px;
+  font-family: tahoma
+}
+
+.calendar div {
+  display: flex;
+  justify-content: space-between;
+  line-height: 24px;
+}
+
+.calendar .previous, .calendar .next {
+  border: 8px solid transparent;
+  font-weight: normal;
+  width: 0;
+  height: 0;
+  margin-top: 4px;
+}
+
+.calendar .previous {
+  border-right-color: black;
+}
+
+.calendar .next {
+  border-left-color: black;
+}
+
+.calendar div span:nth-child(4) {
+  width: 35px;
+  text-align: center;
+}
+
+.calendar div span:nth-child(2), .calendar div b {
+  cursor: pointer;
+}
+
+.calendar div span:nth-child(2):hover, .calendar div b:hover {
+  text-decoration: underline;
+}
+
+.calendar div b {
+  width: 16px;
+  text-align: center;
+}
+
+.calendar table {
+  width: 100%;
+  line-height: 20px;
+  border-spacing: 0;
+  text-align: center;
+}
+
+.calendar thead {
+  background: #8c8c8c;
+  color: white
+}
+
+.calendar div b, .calendar thead th {
+  font-weight: normal;
+}
+
+.calendar thead th {
+  text-align: center;
+}
+
+.calendar thead th:nth-child(7) {
+  background: #d9534f;
+}
+
+.calendar .active {
+  background: steelblue;
+  color: white;
+}
+
+.calendar td {
+  cursor: pointer;
+}
+
+.calendar td[previousMonth], .calendar td[nextMonth] {
+  color: #ddd;
+}
+
+.calendar .active td[previousMonth], .calendar .active td[nextMonth] {
+  color: #999;
+}

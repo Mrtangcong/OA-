@@ -1,0 +1,378 @@
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../../plug/bootstrap-3.3.7-dist/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/jquery-accordion-menu/css/jquery-accordion-menu.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/sweetalert2/css/sweetalert2.min.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/style.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/timeline.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/calendar.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/layui/css/layui.css" />
+
+<script src="../../plug/layui/layui.all.js"></script>
+<script src="../../plug/jquery-3.2.1.min.js"></script>
+<script src="../../plug/handlebars-v4.0.11.js"></script>
+<script src="../../plug/handlebarsBinding/js/handlebarsBinding.js"></script>
+<script src="../../plug/zTreeBinding.js"></script>
+<script src="../../plug/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
+<script src="../../plug/jquery-accordion-menu/js/jquery-accordion-menu.js"></script>
+<script src="../../plug/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../../plug/handlebarshelper.js"></script>
+<script src="../../plug/util.js"></script>
+<script src="../../plug/pjax.js"></script>
+<script src="../../plug/sweetalert2/js/sweetalert2.all.min.js"></script>
+<script src="../../plug/jquery-validation-1.17.0/jquery.validate.min.js"></script>
+<script src="../../plug/jquery-validation-1.17.0/additional-methods.min.js"></script>
+<style type="text/css">
+	#main {
+		padding: 0px;
+		background: #FCFCFF;
+	}
+	
+	.page-header {
+		margin: 0;
+	}
+	
+	.panel-header {
+		margin-top: 20px
+	}
+	
+	.h-pagination {
+		width: 100%
+	}
+	
+	.row {
+		margin: 0
+	}
+	
+	.col-xs-12 {
+		padding: 0
+	}
+	
+	.panel-body {
+		padding: 0
+	}
+	
+	.el-search_form {
+		background: #fff;
+	}
+	
+	.btn {
+		width: 88px;
+		height: 44px;
+		border-radius: 25px;
+		border: 0px;
+		color: #fff;
+	}
+	
+	.form-control {
+		width: 200px;
+		height: 44px;
+		background: rgba(255, 255, 255, 1);
+		border-radius: 22px;
+	}
+	
+	.page-header .col-xs-8,
+	.page-header .col-xs-4 {
+		margin-top: 10px
+	}
+	
+	.table {
+		margin-bottom: 0;
+		text-align: center;
+	}
+	
+	.table th {
+		margin-bottom: 0;
+		text-align: center;
+	}
+	
+	.btn-reset {
+		width: 88px;
+		height: 44px;
+		background: rgba(255, 255, 255, 1);
+		border-radius: 22px;
+		color: #000;
+		border: 1px solid #eee;
+		margin-right: 10px;
+	}
+	
+	.btn:focus {
+		outline: 0;
+	}
+	.col-xs-12{
+		border: 1px solid #e6e6e6;
+		border-bottom-color: #eeeeee;
+	}
+	.blue{
+		color: #00ffff;
+	}
+	.red{
+		color: #f80732;
+	}
+	.layui-input-block{
+		margin: 0;
+	}
+	.col-xs-6 {
+    	width: 100%;
+	}
+	.layui-form-item {
+		margin-bottom: 0;
+	}
+</style>
+
+<div id="main">
+	<div style='margin-top:0'>
+		<blockquote class="layui-elem-quote layui-quote-nm">
+			<div class="layui-row">
+				<div class="layui-col-md9">
+					<h3>流程管理</h3>
+				</div>
+				<div class="layui-col-md3">
+					<div class="btnList pull-right" id="btnList">
+						<!--
+                    	描述：添加按钮加载区域
+                    -->
+					</div>
+				</div>
+			</div>
+		</blockquote>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel-header">
+				<form class="form-inline searchForm el-search_form" id="searchForm">
+					<!--
+	                    	描述：searchForm加载区域
+	                    -->
+				</form>
+			</div>
+			<div class="panel-body">
+				<div id="grid">
+					<!--
+	                    	描述：grid加载区域
+	                    -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="editForm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"></div>
+<script id="template-searchForm" type="text/x-handlebars-template">
+	<div class="searchForm-main">
+		<div  action="" >
+			<div class="row layui-form">
+				<div class="col-xs-3">
+					<input name="name" maxlength="20" type="text" class="layui-input" lay-search placeholder="流程名称">
+				</div>
+				<div class="col-xs-3">
+					  <div class="layui-form-item ">
+					    <div class="layui-input-block ">
+					      <select name="status" lay-verify="required" class="layui-input">
+					        <option value="" disabled selected>请选择状态</option>
+						  	<option value="open">启用</option>
+						  	<option value="stop">停用</option>
+					      </select>
+					    </div>
+					  </div>
+				</div>
+				<div class="col-xs-3">
+					<div class="layui-form-item ">
+					    <div class="layui-input-block ">
+					      <select name="typeCode" lay-verify="required" lay-search class="layui-input">
+    						<option value="" disabled selected >请选择类型</option>
+						  	<option value="BU">BU业务</option>
+						  	<option value="OA">OA办公</option>
+					      </select>
+					    </div>
+					  </div>
+				</div>
+				<div class="col-xs-3">
+					<div class="searchForm-btn">
+						<input style='margin-right:30px' class="layui-btn layui-btn-primary" value="清空" type="reset" />
+						<input class="layui-btn layui-btn-radius layui-btn-normal" value="搜索" type="button" event-search />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</script>
+<script id="template-btnList" type="text/x-handlebars-template">
+	<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" data-toggle="modal" data-target="#editForm" event-add>
+		新增流程
+    </button>
+</script>
+
+<script id="template-grid" type="text/x-handlebars-template">
+	<div class="h-center">
+		<table class="layui-table">
+			<thead>
+				<tr class="active">
+					<th>流程名称</th>
+					<th>流程编码</th>
+					<th style="display:none"></th>
+					<th>流程类型</th>
+					<th>状态</th>
+					<th>操作</th>
+					
+				</tr>
+			</thead>
+			{{#if list}}
+			<tbody>
+				{{#each list}}
+				<tr>
+					<td>{{name}}</td>
+					<td style="display: none">{{id}}</td>
+					<td>{{infoCode}}</td>
+					<td>{{typeCode}}</td>
+					{{#if status '==' "OPEN"}}
+						<td class="blue">启用</td>
+						{{else}}
+							<td class="red">关闭</td>
+					{{/if}}
+					
+					<td>
+						<a role="button" data-toggle="modal" data-target="#editForm" event-view='{{json this}}'>修改</a>
+						
+						{{#if status  '==' "OPEN"}}
+						<a role="button" data-toggle="modal" event-stop='{{json this}}'>停用</a>
+						{{else}}
+						<a role="button" data-toggle="modal" event-run='{{json this}}'>启用</a>
+						<a role="button" data-toggle="modal" event-del='{{json this}}'>删除</a>
+						{{/if}}
+						<a role="button" data-toggle="modal" event-get='{{json this}}'>配置节点</a>
+					
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+			{{/if}}
+		</table>
+		{{#if list.length '==' 0}}
+		<div class="alert alert-info" role="alert">暂无数据</div>
+		{{/if}}
+	</div>
+	{{#if count}}
+	<div class="h-pagination el-pager" class="clearfix"></div>
+	{{/if}}
+</script>
+<script id="template-editForm" type="text/x-handlebars-template" class="modal-dialog fade">
+	<div class="modal-dialog modal-sm layui-form"  role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+                  {{#if xiugai}}
+                  		编辑流程
+                  {{else}}
+                  		新增流程
+                  {{/if}}
+                </h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" id='dataForm' enctype="">
+					{{#if xiugai}}
+                  		<input type="number" name="id" maxlength="20" type="text" class="layui-input" required placeholder="名称" value="{{id}}" style="display: none">
+                  		{{else}}
+                  		<input type="number" name="createUser" maxlength="20" type="text" class="layui-input" style="display: none">
+
+	                {{/if}}
+					
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<input name="name" maxlength="20" type="text" class="layui-input" required placeholder="名称" value="{{name}}">
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<input name="infoCode" maxlength="20" type="text" class="layui-input" required placeholder="编码" value="{{infoCode}}">
+							</div>
+							</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<div class="layui-form-item ">
+							    	<div class="layui-input-block ">
+							      		<select name="typeCode" lay-verify="required" class="layui-input">
+								      		{{#if unde}}
+							     				{{#if leixing}}
+										        	<option value="" disabled >请选择类型</option>
+												  	<option value="BU" selected>BU业务</option>
+												  	<option value="OA">OA办公</option>
+										  		{{else}}
+												  	<option value="" disabled >请选择类型</option>
+												  	<option value="BU" >BU业务</option>
+												  	<option value="OA" selected>OA办公</option>
+										  		{{/if}}
+							      			{{else}}
+							      					<option value="" disabled selected >请选择类型</option>
+												  	<option value="BU">BU业务</option>
+												  	<option value="OA">OA办公</option>
+							      			{{/if}}
+						      			</select>
+							    	</div>
+							    </div>
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<div class="layui-form-item ">
+							    	<div class="layui-input-block ">
+							      		<select name="status" lay-verify="required" class="layui-input">
+							      			{{#if unde}}
+							     				{{#if status}}
+										        	<option value="" disabled >请选择状态</option>
+												  	<option value="OPEN" selected>启用</option>
+												  	<option value="STOP">停用</option>
+										  		{{else}}
+												  	<option value="" disabled >请选择状态</option>
+												  	<option value="OPEN" >启用</option>
+												  	<option value="STOP" selected>停用</option>
+										  		{{/if}}
+							      			{{else}}
+							      					<option value="" disabled selected >请选择状态</option>
+												  	<option value="OPEN">启用</option>
+												  	<option value="STOP">停用</option>
+							      			{{/if}}
+								      	</select>
+							    	</div>
+							    </div>
+							</div>
+							</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<input name="wfUrl" maxlength="20" type="text" class="layui-input" required placeholder="查看地址" value="{{wfUrl}}">
+							</div>
+							</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<textarea name="description" style="resize:none"  placeholder="备注" class="layui-textarea">{{description}}</textarea>
+							</div>
+							</div>
+					</div>
+					<br/>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-primary" data-dismiss="modal">取消</button>
+				<button type="button" class="btn layui-btn-normal" event-confirm>确定</button>
+			</div>
+		</div>
+	</div>
+</script>
+<script src="index.js"></script>

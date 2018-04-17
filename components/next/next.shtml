@@ -1,0 +1,1011 @@
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../../plug/bootstrap-3.3.7-dist/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/jquery-accordion-menu/css/jquery-accordion-menu.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/sweetalert2/css/sweetalert2.min.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/style.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/timeline.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/calendar.css" />
+<link rel="stylesheet" type="text/css" href="../../plug/layui/css/layui.css" />
+
+<script src="../../plug/layui/layui.all.js"></script>
+<script src="../../plug/jquery-3.2.1.min.js"></script>
+<script src="../../plug/handlebars-v4.0.11.js"></script>
+<script src="../../plug/handlebarsBinding/js/handlebarsBinding.js"></script>
+<script src="../../plug/zTreeBinding.js"></script>
+<script src="../../plug/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
+<script src="../../plug/jquery-accordion-menu/js/jquery-accordion-menu.js"></script>
+<script src="../../plug/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../../plug/handlebarshelper.js"></script>
+<script src="../../plug/util.js"></script>
+<script src="../../plug/pjax.js"></script>
+<script src="../../plug/sweetalert2/js/sweetalert2.all.min.js"></script>
+<script src="../../plug/jquery-validation-1.17.0/jquery.validate.min.js"></script>
+<script src="../../plug/jquery-validation-1.17.0/additional-methods.min.js"></script>
+<style type="text/css">
+	#main {
+		padding: 0px;
+		background: #FCFCFF;
+	}
+	
+	.page-header {
+		margin: 0;
+	}
+	
+	.panel-header {
+		margin-top: 20px
+	}
+	
+	.h-pagination {
+		width: 100%
+	}
+	
+	.row {
+		margin: 0
+	}
+	
+	.col-xs-12 {
+		padding: 0
+	}
+	
+	.panel-body {
+		padding: 0
+	}
+	
+	.el-search_form {
+		background: #fff;
+	}
+	
+	.btn {
+		min-width: 88px;
+		height: 44px;
+		border-radius: 25px;
+		border: 0px;
+		color: #fff;
+	}
+	
+	.form-control {
+		width: 200px;
+		height: 44px;
+		background: rgba(255, 255, 255, 1);
+		border-radius: 22px;
+	}
+	
+	.page-header .col-xs-8,
+	.page-header .col-xs-4 {
+		margin-top: 10px
+	}
+	
+	.table {
+		margin-bottom: 0;
+		text-align: center;
+	}
+	
+	.table th {
+		margin-bottom: 0;
+		text-align: center;
+	}
+	
+	.btn-reset {
+		width: 88px;
+		height: 44px;
+		background: rgba(255, 255, 255, 1);
+		border-radius: 22px;
+		color: #000;
+		border: 1px solid #eee;
+		margin-right: 10px;
+	}
+	
+	.btn:focus {
+		outline: 0;
+	}
+	.col-xs-12{
+		border: 1px solid #e6e6e6;
+		border-bottom-color: #eeeeee;
+	}
+	.blue{
+		color: #00ffff;
+	}
+	.red{
+		color: #f80732;
+	}
+	.layui-input-block{
+		margin: 0;
+	}
+	.col-xs-6 {
+    	width: 100%;
+	}
+	.layui-form-item {
+		margin-bottom: 0;
+	}
+	.col-xs-3{
+		margin:10px 0;
+		width: auto;
+	}
+	.layui-col-md3{
+		width: 100%;
+	}
+	.c::after{
+		content: '';
+		display: block;
+		clear: both;
+		visibility: hidden;
+	}
+	.rowtow{
+		width: 50%;
+		float: left;
+		padding: 20px 10px 0;
+	}
+	#jsfs{
+		padding: 20px 10px 0;
+	}
+	.rowthrid{
+		padding: 20px 0;
+	}
+</style>
+
+<div id="main">
+	<div style='margin-top:0'>
+		<blockquote class="layui-elem-quote layui-quote-nm">
+			<div class="layui-row">
+				<div class="layui-col-md9">
+					<h3>节点管理</h3>
+				</div>
+				<div class="layui-col-md3">
+					<div class="btnList pull-right" id="btnList">
+						<!--
+                    	描述：添加按钮加载区域
+                    -->
+					</div>
+				</div>
+			</div>
+		</blockquote>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel-header">
+				<form class="form-inline searchForm el-search_form" id="searchForm">
+					<!--
+	                    	描述：searchForm加载区域
+	                    -->
+				</form>
+			</div>
+			<div class="panel-body">
+				<div id="grid">
+					<!--
+	                    	描述：grid加载区域
+	                    -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="editForm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"></div>
+<div id="liucxsz" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"></div>
+<div id="xzlxmodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"></div>
+<div id="zjdxx" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"></div>
+<div id="end" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"></div>
+<div id="huitui" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"></div>
+<script id="template-searchForm" type="text/x-handlebars-template">
+	<div class="searchForm-main">
+		<div class="layui-form" action="">
+			<div class="row">
+				<div class="col-xs-3">
+					<input name="linkName" maxlength="20" type="text" class="layui-input" placeholder="节点名称">
+					<input type="text" name="infoId" style="display: none">
+				</div>
+				<div class="col-xs-3">
+					  <div class="layui-form-item ">
+					    <div class="layui-input-block ">
+					      <select name="status" lay-verify="required" class="layui-input">
+					        <option value="" disabled selected>请选择状态</option>
+						  	<option value="open">启用</option>
+						  	<option value="stop">停用</option>
+					      </select>
+					    </div>
+					  </div>
+				</div>
+				<div class="col-xs-3">
+					<div class="searchForm-btn">
+						<input style='margin-right:30px' class="layui-btn layui-btn-radius layui-btn-primary" value="清空" type="reset" />
+						<input class="layui-btn layui-btn-radius layui-btn-normal" value="搜索" type="button" event-search />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script id="template-btnList" type="text/x-handlebars-template">
+	<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" data-toggle="modal" data-target="#liucxsz">
+		流程流向配置
+    </button>
+	<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" data-toggle="modal" data-target="#zjdxx" event-zjd>
+		终结点信息
+    </button>
+	<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" data-toggle="modal" data-target="#editForm" event-add>
+		新增节点
+    </button>
+</script>
+
+<script id="template-grid" type="text/x-handlebars-template">
+	<div class="h-center">
+		<table class="layui-table">
+			<thead>
+				<tr class="active">
+					<th style="display: none"></th>
+					<th style="display: none"></th>
+					<th style="display: none"></th>
+					<th style="display: none"></th>
+					<th>流程名称</th>
+					<th>环节名称</th>
+					<th>环节编码</th>
+					<th>节点类型</th>
+					<th>终结点</th>
+					<th>起始点</th>
+					<th>状态</th>
+					<th>允许回退</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			{{#if list}}
+			<tbody>
+				{{#each list}}
+				<tr>
+					<td style="display: none">{{id}}</td>
+					<td style="display: none">{{infoId}}</td>
+					<td style="display: none">{{userId}}</td>
+					
+					<td>
+						{{infoName}}
+					</td>
+					<td>
+						{{linkName}}
+					</td>
+					
+					<td>
+						{{linkType}}
+					</td>
+					{{#if isFinal "==" 'y'}}
+						<td class="blue">
+							是
+						</td>
+						{{else}}
+						<td class="red">
+							否
+						</td>
+					{{/if}}
+					{{#if isStart "==" 'y'}}
+						<td class="blue">
+							是
+						</td>
+						{{else}}
+						<td class="red">
+							否
+						</td>
+					{{/if}}
+					{{#if status "==" 'OPEN'}}
+						<td class="blue">
+							启用
+						</td>
+						{{else}}
+						<td class="red">
+							停用
+						</td>
+					{{/if}}
+					{{#if allowBack "==" 'y'}}
+						<td class="blue">
+							是
+						</td>
+						{{else}}
+						<td class="red">
+							否
+						</td>
+					{{/if}}
+					<td>
+						<a role="button" data-toggle="modal" data-target="#editForm" event-view='{{json this}}'>修改</a>
+						
+						{{#if state}}
+							<a role="button" data-toggle="modal" event-stop='{{json this}}'>停用</a>
+						{{else}}
+							<a role="button" data-toggle="modal" event-run='{{json this}}'>启用</a>
+							<a role="button" data-toggle="modal" event-del='{{json this}}'>删除</a>
+						{{/if}}
+						{{#if yxht}}
+							<a role="button" data-toggle="modal" data-target="#huitui" event-huitui='{{json this}}'>配置回退环节</a>
+						{{/if}}
+						{{#if zjd}}
+							<a role="button" data-toggle="modal" data-target="#end" event-end='{{json this}}'>设置终结条件</a>
+						{{/if}}
+					
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+			{{/if}}
+		</table>
+		{{#if list.length '==' 0}}
+		<div class="alert alert-info" role="alert">暂无数据</div>
+		{{/if}}
+	</div>
+	{{#if count}}
+	<div class="h-pagination el-pager" class="clearfix"></div>
+	{{/if}}
+</script>
+<script id="template-editForm" type="text/x-handlebars-template" class="modal-dialog fade">
+	<div class="modal-dialog"  role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+                  {{#if id}}
+                  		编辑节点
+                  {{else}}
+                  		新增节点
+                  {{/if}}
+                </h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal layui-form c" id='DataForm' enctype="multipart/form-data">
+					<input name="createUser" style="display: none">
+					<input name="infoId" style="display: none">
+					<div class="row rowtow">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<input name="linkCode" maxlength="20" type="text" class="layui-input" required placeholder="节点编码" value="{{linkCode}}">
+							</div>
+						</div>
+					</div>
+					
+					<div class="row rowtow">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<input name="linkName" maxlength="20" type="text" class="layui-input" required placeholder="节点名称" value="{{linkName}}">
+							</div>
+						</div>
+					</div>
+				
+					<div class="row rowtow">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<input name="linkUrl" maxlength="20" type="text" class="layui-input" required placeholder="处理地址" value="{{linkUrl}}">
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row rowtow">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<div class="layui-form-item ">
+								    <div class="layui-input-block ">
+								      <select name="isStart" lay-verify="required" class="layui-input">
+											{{#if unde}}
+							     				{{#if isStart "==" 'y'}}
+										        	<option value="" disabled >起始节点</option>
+												  	<option value="y" selected>是</option>
+												  	<option value="n">否</option>
+										  		{{else}}
+												  	<option value="" disabled >起始节点</option>
+												  	<option value="y">是</option>
+												  	<option value="n" selected>否</option>
+										  		{{/if}}
+							      			{{else}}
+							      					<option value="state2" disabled selected>起始节点</option>
+												  	<option value="y">是</option>
+												  	<option value="n">否</option>
+							      			{{/if}}
+								      </select>
+								    </div>
+								</div>
+								
+							</div>
+							</div>
+					</div>
+					<br/>
+					<div class="row rowtow">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<div class="layui-form-item ">
+								    <div class="layui-input-block ">
+								      <select name="status" lay-verify="required" class="layui-input">
+										{{#if unde}}
+						     				{{#if state "==" 'open'}}
+									        	<option value="" disabled >请选择状态</option>
+											  	<option value="open" selected>启用</option>
+											  	<option value="stop">停用</option>
+									  		{{else}}
+											  	<option value="" disabled >请选择状态</option>
+											  	<option value="open" >启用</option>
+											  	<option value="stop" selected>停用</option>
+									  		{{/if}}
+						      			{{else}}
+						      					<option value="" disabled selected >请选择状态</option>
+											  	<option value="open">启用</option>
+											  	<option value="stop">停用</option>
+						      			{{/if}}
+								      </select>
+								    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div id="qsjdno" style="display: none">
+						
+					
+						<div class="row rowtow">
+							<div class="col-xs-12">
+								<div class="col-xs-6">	
+									<div class="layui-form-item ">
+									    <div class="layui-input-block ">
+									      <select name="isFinal" lay-verify="required" class="layui-input">
+											{{#if unde}}
+							     				{{#if isFinal "==" 'y'}}
+										        	<option value="" disabled >终结点</option>
+												  	<option value="y" selected>是</option>
+												  	<option value="n">否</option>
+										  		{{else}}
+												  	<option value="" disabled >终结点</option>
+												  	<option value="y" >是</option>
+												  	<option value="n" selected>否</option>
+										  		{{/if}}
+							      			{{else}}
+							      					<option value="" disabled selected >终结点</option>
+												  	<option value="y">是</option>
+												  	<option value="n">否</option>
+							      			{{/if}}
+									      </select>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row rowtow">
+							<div class="col-xs-12">
+								<div class="col-xs-6">	
+									<div class="layui-form-item ">
+									    <div class="layui-input-block ">
+									      <select name="allowBack" lay-verify="required" class="layui-input">
+											{{#if unde}}
+							     				{{#if allowBack "==" 'y'}}
+										        	<option value="" disabled >允许回退</option>
+												  	<option value="y" selected>是</option>
+												  	<option value="n">否</option>
+										  		{{else}}
+												  	<option value="" disabled >允许回退</option>
+												  	<option value="y" >是</option>
+												  	<option value="n" selected>否</option>
+										  		{{/if}}
+							      			{{else}}
+							      					<option value="" disabled selected >允许回退</option>
+												  	<option value="y">是</option>
+												  	<option value="n">否</option>
+							      			{{/if}}
+									      </select>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row rowtow">
+							<div class="col-xs-12">
+								<div class="col-xs-6">	
+									<div class="layui-form-item ">
+									    <div class="layui-input-block ">
+									      <select name="linkType" lay-verify="required" class="layui-input">
+											{{#if unde}}
+							     				{{#if linkType "==" "m"}}
+										        	<option value="" disabled >类型</option>
+												  	<option value="m" selected>必须节点</option>
+												  	<option value="o">非必选节点</option>
+												  	<option value="c">抄送节点</option>
+												{{/if}}
+										  		{{#if linkType "==" "o"}}
+												  	<option value="" disabled >类型</option>
+												  	<option value="m">必须节点</option>
+												  	<option value="o" selected>非必选节点</option>
+												  	<option value="c">抄送节点</option>
+												{{else}}
+													<option value="" disabled >类型</option>
+												  	<option value="m">必须节点</option>
+												  	<option value="o">非必选节点</option>
+												  	<option value="c" selected>抄送节点</option>
+										  		{{/if}}
+							      			{{else}}
+							      					<option value="" disabled selected >类型</option>
+												  	<option value="m">必须节点</option>
+												  	<option value="o">非必选节点</option>
+												  	<option value="c">抄送节点</option>
+							      			{{/if}}
+									      </select>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row rowtow">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<div class="layui-form-item">
+									    <div class="layui-input-block">
+									  	{{#if unde}}
+										    {{#if userId}}
+										      <input type="radio" name="sex" value="userId" title="人员发送" checked>
+										      <input type="radio" name="sex" value="roleId" title="角色发送">
+										    {{else}}
+										      <input type="radio" name="sex" value="userId" title="人员发送">
+										      <input type="radio" name="sex" value="roleId" title="角色发送" checked>
+										      {{/if}}
+										{{else}}
+											  <input type="radio" name="sex" value="userId" title="人员发送" checked>
+										      <input type="radio" name="sex" value="roleId" title="角色发送">
+										{{/if}}
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div id="ryfs">
+						<div class="row rowtow" >
+								<div class="col-xs-12">
+									<div class="col-xs-6">
+										<input name="userId" maxlength="20" type="text" class="layui-input" required placeholder="发送人员" value="{{userId}}">
+									</div>
+								</div>
+							</div>
+							<br>
+						</div>
+						<div id="jsfs" style="display: none">
+							<div class="row rowtow">
+								<div class="col-xs-12">
+									<div class="col-xs-6">
+										<input name="roleId" maxlength="20" type="text" class="layui-input" required placeholder="发送角色" value="{{roleId}}">
+									</div>
+								</div>
+							</div>
+							<br>
+							<div class="row rowtow rowthrid">
+							<div class="col-xs-12">
+								<div class="col-xs-6">	
+									<div class="layui-form-item ">
+									    <div class="layui-input-block ">
+									      <select name="jiedianselect" lay-verify="required" class="layui-input">
+											{{#if unde}}
+							     				{{#if roleType '==' "all"}}
+										        	<option value="tsgz03" disabled >角色类型</option>
+												  	<option value="all" selected>全部</option>
+												  	<option value="dep">按部门</option>
+												  	<option value="sp">特殊规则</option>
+												{{/if}}
+										  		{{#if roleType '==' 'dep'}}
+												  	<option value="tsgz03" disabled >角色类型</option>
+												  	<option value="all">全部</option>
+												  	<option value="dep" selected>按部门</option>
+												  	<option value="sp">特殊规则</option>
+												{{else}}
+													<option value="tsgz03" disabled >角色类型</option>
+												  	<option value="all">全部</option>
+												  	<option value="dep">按部门</option>
+												  	<option value="sp" selected>特殊规则</option>
+										  		{{/if}}
+							      			{{else}}
+							      					<option value="tsgz03" disabled selected >角色类型</option>
+												  	<option value="all">全部</option>
+												  	<option value="dep">按部门</option>
+												  	<option value="sp">特殊规则</option>
+							      			{{/if}}
+									      </select>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div id="tsgz" style="display: none">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="col-xs-6">
+										<button type="button" class="layui-btn layui-btn-radius layui-btn-normal">新增配置规则</button>
+										<table class="layui-table">
+											<thead>
+												<tr class="active">
+													<th>部门</th>
+													<th>人员</th>
+													<th>状态</th>
+													<th>操作</th>
+													
+												</tr>
+											</thead>
+											{{#if list}}
+											<tbody>
+												{{#each list}}
+												<tr>
+													<td>{{bm}}</td>
+													<td>
+														{{ry}}
+													</td>
+													<td>
+														{{state}}
+													</td>
+													<td>
+														<a role="button" data-toggle="modal" event-del='{{json this}}'>删除</a>
+													</td>
+												</tr>
+												{{/each}}
+											</tbody>
+											{{/if}}
+										</table>
+										{{#if list.length '==' 0}}
+										<div class="alert alert-info" role="alert">暂无数据</div>
+										{{/if}}
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-primary" data-dismiss="modal">取消</button>
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" event-confirm>确定</button>
+			</div>
+		</div>
+	</div>
+</script>
+<script id="template-liucxsz" type="text/x-handlebars-template" class="modal-dialog fade">
+	<div class="modal-dialog "  role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+                 流程流向配置
+                </h4>
+			</div>
+			<div class="modal-body">
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" data-toggle="modal" data-target="#xzlxmodal" event-add>
+					新增流向
+			    </button>
+			    <br>
+			    <div id="lxlx"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-primary" data-dismiss="modal">取消</button>
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" event-confirm>确定</button>
+			</div>
+		</div>
+	</div>
+</script>
+<script id="template-xzlxmodal" type="text/x-handlebars-template" class="modal-dialog fade">
+	<div class="modal-dialog modal-sm "  role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+                新增流程项
+                </h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal layui-form" id='newData' enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<div class="layui-form-item ">
+								    <div class="layui-input-block ">
+								      <select name="jiedianselect" lay-verify="required" class="layui-input">
+								        <option value="" disabled selected>请选择节点</option>
+									  	{{#each list}}
+									  	 <option value="{{dqjd}}">{{dqjd}}</option>
+									  	{{/each}}
+								      </select>
+								    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<div class="layui-form-item ">
+								    <div class="layui-input-block ">
+								      <select name="xiafaselect" lay-verify="required" class="layui-input">
+								        <option value="" disabled selected>请选择下发节点</option>
+									  	{{#each list}}
+									  	 <option value="{{dqjd}}">{{dqjd}}</option>
+									  	{{/each}}
+								      </select>
+								    </div>
+								</div>
+							</div>
+							</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-6">
+								<input name="xjtj" maxlength="20" type="text" class="layui-input" placeholder="先决条件" value="">
+							</div>
+							</div>
+					</div>
+					<br/>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-primary" data-dismiss="modal">取消</button>
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" event-confirm>确定</button>
+			</div>
+		</div>
+	</div>
+</script>
+<script id="template-lxlx" type="text/x-handlebars-template">
+	<div class="h-center">
+		<table class="layui-table">
+			<thead>
+				<tr class="active">
+					<th>当前节点</th>
+					<th>下一节点</th>
+					<th>先决条件</th>
+					<th>操作</th>
+					
+				</tr>
+			</thead>
+			{{#if list}}
+			<tbody>
+				{{#each list}}
+				<tr>
+					<td style="display: none">{{linkid}}</td>
+					<td>{{linkname}}</td>
+					<td>.
+						{{nextlinkname}}
+					</td>
+					<td>
+						{{prerequisite}}
+					</td>
+					<td>
+						<a role="button" data-toggle="modal" event-del='{{json this}}'>删除</a>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+			{{/if}}
+		</table>
+		{{#if list.length '==' 0}}
+		<div class="alert alert-info" role="alert">暂无数据</div>
+		{{/if}}
+	</div>
+	{{#if count}}
+	<div class="h-pagination el-pager" class="clearfix"></div>
+	{{/if}}
+</script>
+<script id="template-end" type="text/x-handlebars-template">
+	<div class="modal-dialog "  role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+                设置终结条件
+                </h4>
+			</div>
+			<div class="modal-body">
+				<div class="h-center">
+					<form class="form-horizontal layui-form" id='endform' enctype="multipart/form-data">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<input name="jdmc" maxlength="20" type="text" class="layui-input" placeholder="节点名称" readonly value="{{jdmc}}">
+								</div>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<input name="zxz" maxlength="20" type="text" class="layui-input" placeholder="最小值" value="{{zxz}}">
+								</div>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<input name="zdz" maxlength="20" type="text" class="layui-input" placeholder="最大值" value="{{zdz}}">
+								</div>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<div class="layui-form-item ">
+									    <div class="layui-input-block ">
+									      <select name="endselect" lay-verify="required" class="layui-input">
+									        {{#if unde}}
+							     				{{#if state}}
+										        	<option value="" disabled >请选择状态</option>
+												  	<option value="010" selected>启用</option>
+												  	<option value="021">停用</option>
+										  		{{else}}
+												  	<option value="" disabled >请选择状态</option>
+												  	<option value="010" >启用</option>
+												  	<option value="021" selected>停用</option>
+										  		{{/if}}
+							      			{{else}}
+							      					<option value="" disabled selected >请选择状态</option>
+												  	<option value="010">启用</option>
+												  	<option value="021">停用</option>
+							      			{{/if}}
+									      </select>
+									    </div>
+									</div>
+								</div>
+								</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									
+								</div>
+								</div>
+						</div>
+						<br/>
+					</form>
+				</div>
+				{{#if count}}
+				<div class="h-pagination el-pager" class="clearfix"></div>
+				{{/if}}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-primary" data-dismiss="modal">取消</button>
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" event-ok>确定</button>
+			</div>
+		</div>
+	</div>
+</script>
+<script id="template-zjdxx" type="text/x-handlebars-template">
+	<div class="modal-dialog "  role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+                终结点查看
+                </h4>
+			</div>
+			<div class="modal-body">
+				<div class="h-center">
+					<table class="layui-table">
+						<thead>
+							<tr class="active">
+								<th>节点名称</th>
+								<th>最小值</th>
+								<th>最大值</th>
+								<th>状态</th>
+								<th>操作</th>
+								
+							</tr>
+						</thead>
+						{{#if list}}
+						<tbody>
+							{{#each list}}
+							<tr>
+								<td>{{finalLinkName}}</td>
+								<td>
+									{{lLimit}}
+								</td>
+								<td>
+									{{uLimit}}
+								</td>
+									{{#if state "==" 'open'}}
+										<td class="blue">
+											启用
+										</td>
+									{{else}}
+										<td class="red">
+											停用
+										</td>
+									{{/if}}
+								<td>
+									{{#if state  "==" 'open'}}
+										<a role="button" data-toggle="modal" event-stop='{{json this}}'>停用</a>
+									{{else}}
+										<a role="button" data-toggle="modal" event-run='{{json this}}'>启用</a>
+										<a role="button" data-toggle="modal" event-del='{{json this}}'>删除</a>
+									{{/if}}
+								</td>
+							</tr>
+							{{/each}}
+						</tbody>
+						{{/if}}
+					</table>
+					{{#if list.length '==' 0}}
+					<div class="alert alert-info" role="alert">暂无数据</div>
+					{{/if}}
+				</div>
+				{{#if count}}
+				<div class="h-pagination el-pager" class="clearfix"></div>
+				{{/if}}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" data-dismiss="modal">确定</button>
+			</div>
+		</div>
+	</div>
+	
+</script>
+<script id="template-huitui" type="text/x-handlebars-template">
+	<div class="modal-dialog "  role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+                回退节点
+                </h4>
+			</div>
+			<div class="modal-body">
+				<div class="h-center">
+					<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" event-add>
+						新增回退节点
+				    </button>
+				    <br>
+					<div id="huituilist"></div>
+				</div>
+				{{#if count}}
+				<div class="h-pagination el-pager" class="clearfix"></div>
+				{{/if}}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="layui-btn layui-btn-radius layui-btn-normal" data-dismiss="modal">确定</button>
+			</div>
+		</div>
+	</div>
+	
+</script>
+<script id="template-huituilist" type="text/x-handlebars-template">
+	<table class="layui-table">
+						<thead>
+							<tr class="active">
+								<th>当前节点</th>
+								<th>回退节点</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						{{#if huituilist}}
+						<tbody>
+							{{#each huituilist}}
+							<tr>
+								<td>
+									{{jdmc}}
+								</td>
+								<td class="layui-form">
+									 <div class="layui-form-item ">
+									    <div class="layui-input-block ">
+									      <select name="archiveType" lay-verify="required" class="layui-input">
+									        <option value="" disabled selected>请选择状态</option>
+										  	{{#if next}}
+										  		{{#each nextlist}}
+										  			<option value="{{nextjiedian}}">{{nextjiedian}}</option>
+										  		{{/each}}
+										  	{{else}}
+										  		<option value="" disabled >无法新增回退节点</option>
+										  	{{/if}}
+									      </select>
+									    </div>
+									  </div>
+								</td>
+								<td>
+									<a role="button" data-toggle="modal" event-ok='{{json this}}'>删除</a>
+								</td>
+							</tr>
+							{{/each}}
+						</tbody>
+						{{/if}}
+					</table>
+					{{#if list.length '==' 0}}
+					<div class="alert alert-info" role="alert">暂无数据</div>
+					{{/if}}
+</script>
+<script src="next.js"></script>
+<script type="text/javascript">
+
+</script>
